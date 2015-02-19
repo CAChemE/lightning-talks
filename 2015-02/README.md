@@ -3,7 +3,7 @@ y compartir nuestras experiencias más recientes en el mundillo de programación
 simulación y optimización de procesos.
 
 * [Instalación (indolora) de Python científico con Anaconda](http://nbviewer.ipython.org/github/AeroPython/Curso_AeroPython/blob/master/Notebooks/Clase0_Bienvenido.ipynb) -  [Vídeo](https://www.youtube.com/watch?v=kLuwGhvWJzE)
-* [Widgets interactivos con IPython Notebook]()
+* [Widgets interactivos con IPython Notebook]
 * [Haz cálculos con Octave (MATLAB) y Telegram (Whatsapp) en el móvil](http://nbviewer.ipython.org/urls/raw.github.com/CAChemE/lightning-talks/master/2015-02/TeleOctave.ipynb)
 * [Python Adivinator](http://nbviewer.ipython.org/github/CAChemE/lightning-talks/blob/master/2015-02/juego-python-adivinator.ipynb)
-* [Excel + Python, o cómo ahorrarte VBA y dejar ojiplático a tu jefe]()
+* [Excel + Python, o cómo ahorrarte VBA y dejar ojiplático a tu jefe]
