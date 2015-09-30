@@ -6,7 +6,7 @@ simulación y optimización de procesos.
 
 * [Widgets interactivos con IPython Notebook](https://www.youtube.com/watch?v=w5sirVL3Tys&feature=youtu.be&list=PLGBbVX_WvN7as_DnOGcpkSsUyXB1G_wqb)
 
-- [Ejemplos aplicados a IQ](https://github.com/CAChemE/learn)
+* [Ejemplos de widgets interactivos aplicados a IQ](https://github.com/CAChemE/learn)
 
 * [Haz cálculos con Octave (MATLAB) y Telegram (Whatsapp) en el móvil](http://nbviewer.ipython.org/urls/raw.github.com/CAChemE/lightning-talks/master/2015-02/TeleOctave.ipynb)
 
