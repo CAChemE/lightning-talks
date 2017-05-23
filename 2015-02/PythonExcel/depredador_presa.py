@@ -2,9 +2,9 @@
 """
 Created on Sat Feb 14 20:01:34 2015
 
-@author: Isaías Cuenca
+@author: Isaías Cuenca & Fran Navarro
 @License: CC by 4.0 
-Código original con ecuaciones diferenciales
+Código original con ecuaciones diferenciales y explicación del modelo
 tomado de Alex Sáez (Pybonacci.org)
 http://pybonacci.org/2015/01/05/ecuaciones-de-lotka-volterra-modelo-presa-depredador/
 
@@ -14,13 +14,14 @@ from __future__ import division
 import os
 import sys
 import numpy as np
-from xlwings import Workbook, Range, Chart
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
-from xlwings import Workbook, Range, Chart
+
+import xlwings as xw
+
 
 def main():
-	wb = Workbook.caller()
+	wb = xw.Book.caller()
 
 	def df_dt(x, t, a, b, c, d):
 		"""Función del sistema en forma canónica"""
@@ -28,56 +29,50 @@ def main():
 		dy = - c * x[1] + d * x[0] * x[1]
 		return np.array([dx, dy])
 
-	if Range('W2').value.lower() == 'yes':
-		animate = True
+	if xw.Range('W2').value.lower() == 'yes':
+		animate = True; xw.App.ScreenUpdating = True
 	else:
-		animate = False
+		animate = False; xw.App.ScreenUpdating = False
 
-	# Parámetros
-	a = Range('constante_a').value
-	b = Range('X4').value
-	c = Range('X5').value
-	d = Range('X6').value
-	r = Range('X7').value
+	# Parámetros (obtenidos de las casillas de excel)
+	a = xw.Range('constante_a').value
+	b = xw.Range('X4').value
+	c = xw.Range('X5').value
+	d = xw.Range('X6').value
+	r = xw.Range('X7').value
 
 	# Condiciones iniciales
-	x0 = Range('X13').value   # Presas
-	y0 = Range('X14').value    # Depredadores
+	x0 = xw.Range('X13').value   # Presas
+	y0 = xw.Range('X14').value    # Depredadores
 	conds_iniciales = np.array([x0, y0])
 
 	# Condiciones para integración
-	tf = Range('X10').value
-	N = 50
-	N = Range('X9').value
-	N = int(N)
+	tf = xw.Range('X10').value
+	dt = xw.Range('X9').value
+	N = int(tf/dt)
 	t = np.linspace(0, tf, N)
 
 
 	solucion = odeint(df_dt, conds_iniciales, t, args=(a, b, c, d))
-	#representaciones graficas
-	#plt.plot(t, solucion[:, 0], label='presa')
-	#plt.plot(t, solucion[:, 1], label='depredador')
 
 
-
-	nn = np.linspace(0, N, N)
+    # Escribiendo resultados en Excel
 	if animate:
-		for i in range(1,N):
-			#nn[i] = i
-			#Range('D1').value = np.vstack(nn)
-			Range((i+1,20)).value = t[i-1]
-			Range((i+1,21)).value = solucion[i-1, 0]
-			Range((i+1,22)).value = solucion[i-1, 1]
-			wb.xl_app.Application.ScreenUpdating = True
+		for i in range(N):
+			xw.Range((i+2,20)).value = t[i] # time
+			xw.Range((i+2,21)).value = solucion[i, 0] # n presas
+			xw.Range((i+2,22)).value = solucion[i, 1] # n deprededadores
 	else:
-		 Range('T2').value = np.vstack(t)
-		 Range('U2').value = np.vstack(solucion[:, 0])
-		 Range('V2').value = np.vstack(solucion[:, 1])
-
+		 xw.Range('T2').value = np.vstack(t)
+		 xw.Range('U2').value = np.vstack(solucion[:, 0])
+		 xw.Range('V2').value = np.vstack(solucion[:, 1])
+         
+	xw.App.ScreenUpdating = True
+    
 if __name__ == '__main__':
     if not hasattr(sys, 'frozen'):
         # The next two lines are here to run the example from Python
         # Ignore them when called in the frozen/standalone version
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'depredador.xlsm'))
-        Workbook.set_mock_caller(path)
+        xw.Book.set_mock_caller(path)
     main()
